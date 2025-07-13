@@ -1,0 +1,53 @@
+class Archivo:
+    """
+    Clase que simula la apertura y cierre de un archivo.
+    Muestra cómo se usan los constructores y destructores.
+    """
+    def __init__(self, nombre_archivo):
+        # Constructor: se ejecuta al crear el objeto
+        self.nombre_archivo = nombre_archivo
+        self.archivo = open(nombre_archivo, 'w')  # Simula abrir un archivo en modo escritura
+        print(f"Archivo '{self.nombre_archivo}' abierto correctamente.")
+
+    def escribir(self, contenido):
+        self.archivo.write(contenido + "\n")
+        print(f"Se escribió en el archivo: {contenido}")
+
+    def __del__(self):
+        # Destructor: se ejecuta cuando el objeto es eliminado o el programa termina
+        if self.archivo:
+            self.archivo.close()
+            print(f"Archivo '{self.nombre_archivo}' cerrado correctamente.")
+
+
+class Persona:
+    """
+    Clase que representa a una persona.
+    El constructor inicializa sus atributos y el destructor imprime un mensaje al finalizar.
+    """
+    def __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+        print(f"Persona creada: {self.nombre}, {self.edad} años")
+
+    def saludar(self):
+        print(f"Hola, soy {self.nombre} y tengo {self.edad} años.")
+
+    def __del__(self):
+        print(f"La persona {self.nombre} ha sido eliminada de la memoria.")
+
+
+# Uso de las clases
+if __name__ == "__main__":
+    # Crear objeto Persona
+    p1 = Persona("Jhoel", 22)
+    p1.saludar()
+
+    # Crear objeto Archivo
+    archivo = Archivo("salida.txt")
+    archivo.escribir("Esta es una prueba.")
+    archivo.escribir("El archivo se cerrará automáticamente al finalizar el programa.")
+
+    # Eliminar explícitamente los objetos (opcional, solo para demostrar el uso del destructor)
+    del p1
+    del archivo
